@@ -17,7 +17,6 @@ class NurseController extends AbstractController
         array("Benito", "austrolopitecus")
     );
 
-
     #[Route('/lista_enfermeros', name: 'app_nurse')]
     public function index(): JsonResponse
     {
@@ -43,8 +42,6 @@ class NurseController extends AbstractController
 
         return new JsonResponse(false);
     }
-
-
 
 }
 
