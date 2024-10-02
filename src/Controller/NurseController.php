@@ -11,21 +11,21 @@ class NurseController extends AbstractController
 {
 
     public static $enfermeros = array(
+
         array("Pepe54", "1234wsd", "Pepe"),
         array("Pepe55", "1234wsd", "Pepe"),
         array("PacoPlanchas", "patata", "Paco"),
         array("PepitaLoca", "firulay", "Pepita"),
         array("BenitoElGuay", "austrolopitecus", "Benito")
+
     );
 
     #[Route('/lista_enfermeros', name: 'app_nurse')]
     public function index(): JsonResponse
     {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/NurseController.php',
-        ]);
+        return $this->json(self::$enfermeros);
     }
+    
 
 
     #[Route('/nursebyname', name: 'app_nurse', methods: ['GET'])]
@@ -44,6 +44,7 @@ class NurseController extends AbstractController
         return new JsonResponse(false);
     }
 
+  
     #[Route('/buscarpNombre', name: 'app_nurse', methods: ['GET'])]
     public function searchByName(Request $request): JsonResponse
     {
