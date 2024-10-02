@@ -20,10 +20,7 @@ class NurseController extends AbstractController
     #[Route('/lista_enfermeros', name: 'app_nurse')]
     public function index(): JsonResponse
     {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/NurseController.php',
-        ]);
+        return $this->json(self::$enfermeros);
     }
     
 
