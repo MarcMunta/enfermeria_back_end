@@ -28,8 +28,8 @@ class NurseController extends AbstractController
     
 
 
-    #[Route('/nursebyname', name: 'app_nurse_login', methods: ['POST'])]
-    public function nursebyname(Request $request): JsonResponse
+    #[Route('/nurselogin', name: 'app_nurse_login', methods: ['POST'])]
+    public function nurselogin(Request $request): JsonResponse
     {
 
         $length_enfermeros = count(self::$enfermeros);
