@@ -20,7 +20,7 @@ class NurseController extends AbstractController
 
     );
 
-    #[Route('/list_of_nurses', name: 'nurse')]
+    #[Route('/lista_enfermeros', name: 'nurseee')]
     public function index(): JsonResponse
     {
         return $this->json(self::$enfermeros);
