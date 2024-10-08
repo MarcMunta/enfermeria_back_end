@@ -20,7 +20,7 @@ class NurseController extends AbstractController
 
     );
 
-    #[Route('/lista_enfermeros', name: 'app_nurse_lista')]
+    #[Route('/list_of_nurses', name: 'nurse')]
     public function index(): JsonResponse
     {
         return $this->json(self::$enfermeros);
@@ -28,7 +28,7 @@ class NurseController extends AbstractController
     
 
 
-    #[Route('/nursebyname', name: 'app_nurse_login', methods: ['GET'])]
+    #[Route('/nursebyname', name: 'app_nurse_login', methods: ['POST'])]
     public function nursebyname(Request $request): JsonResponse
     {
 
