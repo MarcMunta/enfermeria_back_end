@@ -28,7 +28,7 @@ class NurseController extends AbstractController
     
 
 
-    #[Route('/nursebyname', name: 'app_nurse_login', methods: ['GET'])]
+    #[Route('/nursebyname', name: 'app_nurse_login', methods: ['POST'])]
     public function nursebyname(Request $request): JsonResponse
     {
 
