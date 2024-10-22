@@ -13,6 +13,7 @@ class ListaEnfermeros
     #[ORM\Column]
     private ?int $id = null;
 
+
     #[ORM\Column]
     private ?int $DNI = null;
 
@@ -26,10 +27,12 @@ class ListaEnfermeros
     #[ORM\JoinColumn(nullable: false)]
     private ?LoginEnfermeros $login_enfermeros = null;
 
+
     public function getId(): ?int
     {
         return $this->id;
     }
+
 
     public function getDNI(): ?int
     {
