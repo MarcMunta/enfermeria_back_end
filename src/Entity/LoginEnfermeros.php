@@ -14,36 +14,43 @@ class LoginEnfermeros
     private ?int $id = null;
 
     #[ORM\Column(length: 45)]
-    private ?string $USUARIO = null;
+    private ?string $usuario = null;
 
     #[ORM\Column(length: 45)]
-    private ?string $CONTRASENA = null;
+    private ?string $contrasena = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUSUARIO(): ?string
+    public function setId(int $id): static
     {
-        return $this->USUARIO;
-    }
-
-    public function setUSUARIO(string $USUARIO): static
-    {
-        $this->USUARIO = $USUARIO;
+        $this->id = $id;
 
         return $this;
     }
 
-    public function getCONTRASENA(): ?string
+    public function getUsuario(): ?string
     {
-        return $this->CONTRASENA;
+        return $this->usuario;
     }
 
-    public function setCONTRASENA(string $CONTRASENA): static
+    public function setUsuario(string $usuario): static
     {
-        $this->CONTRASENA = $CONTRASENA;
+        $this->usuario = $usuario;
+
+        return $this;
+    }
+
+    public function getContrasena(): ?string
+    {
+        return $this->contrasena;
+    }
+
+    public function setContrasena(string $contrasena): static
+    {
+        $this->contrasena = $contrasena;
 
         return $this;
     }

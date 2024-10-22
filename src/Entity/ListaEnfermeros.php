@@ -13,68 +13,71 @@ class ListaEnfermeros
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 9)]
-    private ?string $DNI = null;
+
+    #[ORM\Column]
+    private ?int $DNI = null;
 
     #[ORM\Column(length: 45)]
-    private ?string $NOMBRE = null;
+    private ?string $nombre = null;
 
     #[ORM\Column(length: 45)]
-    private ?string $APELLIDO = null;
+    private ?string $apellido = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private ?LoginEnfermeros $ID_LOGIN = null;
+    private ?LoginEnfermeros $login_enfermeros = null;
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getDNI(): ?string
+
+    public function getDNI(): ?int
     {
         return $this->DNI;
     }
 
-    public function setDNI(string $DNI): static
+    public function setDNI(int $DNI): static
     {
         $this->DNI = $DNI;
 
         return $this;
     }
 
-    public function getNOMBRE(): ?string
+    public function getNombre(): ?string
     {
-        return $this->NOMBRE;
+        return $this->nombre;
     }
 
-    public function setNOMBRE(string $NOMBRE): static
+    public function setNombre(string $nombre): static
     {
-        $this->NOMBRE = $NOMBRE;
+        $this->nombre = $nombre;
 
         return $this;
     }
 
-    public function getAPELLIDO(): ?string
+    public function getApellido(): ?string
     {
-        return $this->APELLIDO;
+        return $this->apellido;
     }
 
-    public function setAPELLIDO(string $APELLIDO): static
+    public function setApellido(string $apellido): static
     {
-        $this->APELLIDO = $APELLIDO;
+        $this->apellido = $apellido;
 
         return $this;
     }
 
-    public function getIDLOGIN(): ?LoginEnfermeros
+    public function getLoginEnfermeros(): ?LoginEnfermeros
     {
-        return $this->ID_LOGIN;
+        return $this->login_enfermeros;
     }
 
-    public function setIDLOGIN(LoginEnfermeros $ID_LOGIN): static
+    public function setLoginEnfermeros(LoginEnfermeros $login_enfermeros): static
     {
-        $this->ID_LOGIN = $ID_LOGIN;
+        $this->login_enfermeros = $login_enfermeros;
 
         return $this;
     }
