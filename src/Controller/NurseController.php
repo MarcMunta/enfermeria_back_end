@@ -11,13 +11,28 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Doctrine\ORM\EntityManagerInterface;
+
 
 class NurseController extends AbstractController
 {
     
 
-    [Route('/searchByName/{nombre}', name: 'app_nurse', methods: ['GET'])]
+    #[Route('/nurselogin', name: 'app_nurse_login', methods: ['POST'])]
+    public function nurselogin(EntityManagerInterface $entityManager, Request $request): JsonResponse
+    {
+
+        $nurses = $entityManager->getRepository(Nurses::class)->findBy(array("Usuario" => $request->get("user"), "Password" => $request->get("pass")));
+        
+        if ($nurses){
+            return new JsonResponse(true, Response::HTTP_OK);
+        }
+
+        return new JsonResponse(false, Response::HTTP_NOT_FOUND);
+    }
+
+
+
+    #[Route('/searchByName/{nombre}', name: 'app_nurse', methods: ['GET'])]
     public function searchByName(EntityManagerInterface $entityManager, String $nombre): JsonResponse
     {
 
@@ -40,6 +55,7 @@ class NurseController extends AbstractController
             return new JsonResponse('No se encontró ningún enfermero.');
         }
     }
+
 
   /*
 
