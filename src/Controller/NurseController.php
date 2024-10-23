@@ -48,7 +48,7 @@ class NurseController extends AbstractController
             return new JsonResponse('Enfermeros encontrados: ' . implode(' , ', $resultado));
 
         } else {
-            return new JsonResponse('No se encontró ningún enfermero.');
+            return new JsonResponse('No se encontro ningun enfermero.');
         }
     }
 
