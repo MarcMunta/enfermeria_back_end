@@ -26,7 +26,8 @@ class NurseController extends AbstractController
     {
         return $this->json(self::$enfermeros);
     }
-    
+
+
 
 
     #[Route('/nurselogin', name: 'app_nurse_login', methods: ['POST'])]
