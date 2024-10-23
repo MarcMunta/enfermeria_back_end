@@ -11,25 +11,37 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Doctrine\ORM\EntityManagerInterface;
 
 class NurseController extends AbstractController
 {
     
 
-    #[Route('/nurselogin', name: 'app_nurse_login', methods: ['POST'])]
-    public function nurselogin(EntityManagerInterface $entityManager, Request $request): JsonResponse
+    [Route('/searchByName/{nombre}', name: 'app_nurse', methods: ['GET'])]
+    public function searchByName(EntityManagerInterface $entityManager, String $nombre): JsonResponse
     {
 
-        $nurses = $entityManager->getRepository(Nurses::class)->findBy(array("Usuario" => $request->get("user"), "Password" => $request->get("pass")));
-        
-        if ($nurses){
-            return new JsonResponse(true, Response::HTTP_OK);
-        }
 
-        return new JsonResponse(false, Response::HTTP_NOT_FOUND);
+        $enfermeroRepository = $entityManager->getRepository(Nurses::class);
+
+        $enfermeros = $enfermeroRepository->findBy(array(
+            'Nombre' => $nombre
+        ));
+
+        if (!empty($enfermeros)) {
+            $resultado =  [];
+            foreach ($enfermeros as $enfermero){
+                $resultado[] = $enfermero->getNombre() . ' ' . $enfermero->getApellido();
+            }
+
+            return new JsonResponse('Enfermeros encontrados: ' . implode(' | ', $resultado));
+
+        } else {
+            return new JsonResponse('No se encontró ningún enfermero.');
+        }
     }
-    
-    public static $enfermeros = array(
+
+  /*
 
         array("Pepe54", "1234wsd", "Pepe"),
         array("Pepe55", "1234wsd", "Pepe"),
@@ -60,7 +72,7 @@ class NurseController extends AbstractController
         }
 
         return new JsonResponse(false, Response::HTTP_NOT_FOUND);
-    } */
+    }
 
   
     #[Route('/buscarpNombre/{nombre}', name: 'app_nurse', methods: ['GET'])]
@@ -79,8 +91,6 @@ class NurseController extends AbstractController
         }
 
         return new JsonResponse($enfermerosTemp);
-    }
-
-
-    
+    }     
+        */
 }
