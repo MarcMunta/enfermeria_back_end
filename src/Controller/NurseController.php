@@ -3,6 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Nurses;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,6 +15,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class NurseController extends AbstractController
 {
+    
 
     #[Route('/list_of_nurses', name: 'nurse')]
     public function list_of_nurses(EntityManagerInterface $entityManager): JsonResponse
@@ -36,7 +40,31 @@ class NurseController extends AbstractController
     }
 
 
+  #[Route('/searchByName/{nombre}', name: 'app_nurse', methods: ['GET'])]
+    public function searchByName(EntityManagerInterface $entityManager, String $nombre): JsonResponse
+    {
 
+
+        $enfermeroRepository = $entityManager->getRepository(Nurses::class);
+
+        $enfermeros = $enfermeroRepository->findBy(array(
+            'Nombre' => $nombre
+        ));
+
+        if (!empty($enfermeros)) {
+            $resultado =  [];
+            foreach ($enfermeros as $enfermero){
+                $resultado[] = $enfermero->getNombre() . ' ' . $enfermero->getApellido();
+            }
+
+            return new JsonResponse('Enfermeros encontrados: ' . implode(' | ', $resultado));
+
+        } else {
+            return new JsonResponse('No se encontró ningún enfermero.');
+        }
+    }
+
+  /*
     public static $enfermeros = array(
 
         array("Pepe54", "1234wsd", "Pepe"),
@@ -54,9 +82,7 @@ class NurseController extends AbstractController
     } */
 
 
-
-
-    #[Route('/nurselogin', name: 'app_nurse_login', methods: ['POST'])]
+    /* #[Route('/nurselogin', name: 'app_nurse_login', methods: ['POST'])]
     public function nurselogin(Request $request): JsonResponse
     {
 
@@ -89,5 +115,6 @@ class NurseController extends AbstractController
         }
 
         return new JsonResponse($enfermerosTemp);
-    }
+    }     
+        */
 }
