@@ -17,7 +17,30 @@ class NurseController extends AbstractController
 {
     
 
-    [Route('/searchByName/{nombre}', name: 'app_nurse', methods: ['GET'])]
+    #[Route('/list_of_nurses', name: 'nurse')]
+    public function list_of_nurses(EntityManagerInterface $entityManager): JsonResponse
+    {
+
+
+        $enfermeroRepository = $entityManager->getRepository(Nurses::class);
+
+        $enfermeros = $enfermeroRepository->findall();
+
+        if (!empty($enfermeros)) {
+            $resultado =  [];
+            foreach ($enfermeros as $enfermero){
+                $resultado[] = 'Dni: '. $enfermero->getDNI(). ' | '. 'Nombre: ' .$enfermero->getNombre() . ' | ' . 'Apellido: ' .$enfermero->getApellido();
+            }
+
+            return new JsonResponse('Enfermeros encontrados: ' . implode(' , ', $resultado));
+
+        } else {
+            return new JsonResponse('No se encontró ningún enfermero.');
+        }
+    }
+
+
+  #[Route('/searchByName/{nombre}', name: 'app_nurse', methods: ['GET'])]
     public function searchByName(EntityManagerInterface $entityManager, String $nombre): JsonResponse
     {
 
@@ -42,6 +65,7 @@ class NurseController extends AbstractController
     }
 
   /*
+    public static $enfermeros = array(
 
         array("Pepe54", "1234wsd", "Pepe"),
         array("Pepe55", "1234wsd", "Pepe"),
@@ -51,11 +75,11 @@ class NurseController extends AbstractController
 
     );
 
-    #[Route('/list_of_nurses', name: 'nurse')]
+   /*  #[Route('/list_of_nurses', name: 'nurse')]
     public function index(): JsonResponse
     {
         return $this->json(self::$enfermeros);
-    }
+    } */
 
 
     /* #[Route('/nurselogin', name: 'app_nurse_login', methods: ['POST'])]
