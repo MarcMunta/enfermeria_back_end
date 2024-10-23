@@ -3,6 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Nurses;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,9 +15,9 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class NurseController extends AbstractController
 {
+    
 
-
-    #[Route('/searchByName/{nombre}', name: 'app_nurse', methods: ['GET'])]
+    [Route('/searchByName/{nombre}', name: 'app_nurse', methods: ['GET'])]
     public function searchByName(EntityManagerInterface $entityManager, String $nombre): JsonResponse
     {
 
@@ -38,7 +41,7 @@ class NurseController extends AbstractController
         }
     }
 
-  /*   public static $enfermeros = array(
+  /*
 
         array("Pepe54", "1234wsd", "Pepe"),
         array("Pepe55", "1234wsd", "Pepe"),
@@ -55,9 +58,7 @@ class NurseController extends AbstractController
     }
 
 
-
-
-    #[Route('/nurselogin', name: 'app_nurse_login', methods: ['POST'])]
+    /* #[Route('/nurselogin', name: 'app_nurse_login', methods: ['POST'])]
     public function nurselogin(Request $request): JsonResponse
     {
 
@@ -90,6 +91,6 @@ class NurseController extends AbstractController
         }
 
         return new JsonResponse($enfermerosTemp);
-    } */
-
+    }     
+        */
 }
