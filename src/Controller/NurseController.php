@@ -2,14 +2,40 @@
 
 namespace App\Controller;
 
+use App\Entity\Nurses;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Doctrine\ORM\EntityManagerInterface;
 
 class NurseController extends AbstractController
 {
+
+    #[Route('/list_of_nurses', name: 'nurse')]
+    public function list_of_nurses(EntityManagerInterface $entityManager): JsonResponse
+    {
+
+
+        $enfermeroRepository = $entityManager->getRepository(Nurses::class);
+
+        $enfermeros = $enfermeroRepository->findall();
+
+        if (!empty($enfermeros)) {
+            $resultado =  [];
+            foreach ($enfermeros as $enfermero){
+                $resultado[] = 'Dni: '. $enfermero->getDNI(). ' | '. 'Nombre: ' .$enfermero->getNombre() . ' | ' . 'Apellido: ' .$enfermero->getApellido();
+            }
+
+            return new JsonResponse('Enfermeros encontrados: ' . implode(' , ', $resultado));
+
+        } else {
+            return new JsonResponse('No se encontró ningún enfermero.');
+        }
+    }
+
+
 
     public static $enfermeros = array(
 
@@ -21,11 +47,11 @@ class NurseController extends AbstractController
 
     );
 
-    #[Route('/list_of_nurses', name: 'nurse')]
+   /*  #[Route('/list_of_nurses', name: 'nurse')]
     public function index(): JsonResponse
     {
         return $this->json(self::$enfermeros);
-    }
+    } */
 
 
 
